@@ -7,5 +7,6 @@ function getBdd() {
 require_once "../modeles/messages.php";
 require_once "../modeles/hotels.php";
 require_once "../modeles/utilisateurs.php";
+require_once "../modeles/afficherResultat.php";
 
 ?>

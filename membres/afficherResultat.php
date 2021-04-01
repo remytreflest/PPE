@@ -1,50 +1,32 @@
 <?php
 require_once "header.php";
+$tours = tours();
+?>
 
-if(isset($_GET['destination']) && !empty($_GET['destination'])){
-
-    sqlAfficherResultats();
-
-    if(count($resultats) < 1){
-        ?>
-        <div class="alert alert-danger">Nous n'avons pas trouvé de résultat à votre recherche. Vous allez être redirigé vers l'accueil dans 5 secondes.</div>
-        <?php
-        header("refresh:5;index.php");
-    }
-    
-} else {
+<div class="row">
+  <?php
+  foreach($tours as $tour){
     ?>
-        <div class="alert alert-warning">Il semblerait que votre champ de recherche était vide. Vous allez être redirigé vers l'accueil dans 5 secondes.</div>
-        <?php
-        header("refresh:5;index.php");
-}
-?>
-
-
-<?php
-foreach($resultats as $resultat){
-
-?>
-<div class="card mb-3">
-  <div class="row g-0">
-    <div class="col-md-5 col-lg-4 d-flex">
-      <img src="<?=$resultat["photo1"];?>" alt="..." class="img-fluid">
-    </div>
-    <div class="col-md-7 col-lg-8">
-      <div class="card-body">
-        <h3 class="card-title"><?=$resultat["nom"];?></h3>
-        <p class="card-text"><?=$resultat["description"];?></p>
-        <p class="card-text"><small class="text-muted">Last updated <?=rand(1,59);?> mins ago</small></p>
+      <div class ="col-6">
+        <div class="card text-center" style="width: 30rem;">
+          <a href="tours.php?idTour=<?=$tour["idTour"]?>" class="mb-3 lien">
+          <img src="<?=$tour["photo"]?>" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title"><?=$tour["nom"]?></h5>
+            <p class="card-text"><?=$tour["description"]?></p>
+            <br>
+            <ul class="list-inline mb-auto">
+              <li class="list-inline-item font-weight-light">Transport : <i class="fas fa-<?=$tour["transport"]?>"></i></li>
+              <li class="list-inline-item">   </li>
+              <li class="list-inline-item font-weight-light">Prix : <?=$tour["prix"]?>€</li>
+              <li class="list-inline-item">   </li>
+              <li class="list-inline-item font-weight-light">Durée : <?=$tour["durée"]?> jours <i class="far fa-clock"></i></i></li>
+            </ul>
+          </div>
+        </div>
+        </a>
       </div>
-    </div>
-  </div>
+  <?php
+  }
+  ?>
 </div>
-<?php
-}
-?>
-
-
-
-<?php
-require_once "footer.php";
-?>

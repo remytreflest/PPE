@@ -37,8 +37,8 @@ if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <div class="navbar-nav d-flex col-12 align-items-center">
-            <a class="nav-item nav-link" href="ajouterHotels.php">Ajouter Hotel</a>
-            <a class="nav-item nav-link" href="#">Liste des voyages</a>
+            <a class="nav-item nav-link" href="ajouterHotels.php">Ajouter tour</a>
+            <a class="nav-item nav-link" href="listeTours.php">Liste des tours</a>
             <span class="ml-auto mr-3"><?php
             if(!empty($_SESSION["idUtilisateur"])){
                 ?>

@@ -1,8 +1,9 @@
 <?php
 require_once "header.php";
-$tours = tours();
-?>
 
+$tours = tours();
+
+?>
 <div class="container">
   <div class="row">
     <?php
@@ -32,6 +33,3 @@ $tours = tours();
     ?>
   </div>
 </div>
-
-<?php
-require_once "footer.php";

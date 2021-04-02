@@ -1,55 +1,569 @@
+:root{
+  --height-section-1: 700px;
+  --height-elements-section-1: 400px;
+  --height-elements-section-2: 500px;
+
+  /* variable couleur de survol map france et des liens */
+  --color-map-is-active: #3f5eb6;
+}
+
+/* Les classes que je créer */
+.justify{
+  text-align: justify;
+}
+
 body {
-  height: 100%;
-  margin-bottom: 3rem;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  }
+
+#nav-bar{
+  position: sticky;
+  top: 0%;
+  height: 70px;
+  width: 100%;
+  background-color: rgba(236, 228, 228, 0.95);
+  z-index: 999;
+}
+
+#nav-bar ul{
+  list-style-type: none;
+}
+
+/* CSS PAGE D'ACCUEIL */
+
+#formulaireRecherche{
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 25px;
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 250px);
 }
   
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 3rem;
+
+/* CSS ACCUEIL SECTIONS */
+
+section{
+  margin-bottom: 50px;
 }
 
-.container {
-  padding-bottom: 8rem;
+#accueil-section-1{
+  height: var(--height-section-1);
+  width: 100%;
+  background-image: url("../src/img/msm-nuageux.jpg");
+  background-position: 50% 50%;
+  background-size: cover;
 }
+
+.container{
+  height: 100%;
+  width: 100%;
+  padding: 100px 0;
+}
+
+#card-text-section-1{
+  height: var(--height-elements-section-1);
+  padding: 10px;
+}
+
+#card-text-section-1 * {
+  margin: 10px 0px;
+  text-align: justify;
+}
+
+#card-image-section-1{
+  height: var(--height-elements-section-1);
+  position: relative;
+}
+
+.image-section-1{
+  height: var(--height-elements-section-1);
+  width: 250px;
+  position: absolute;
+}
+
+#image-1-section-1{
+  background-image: url("../src/img/montSaintMichel-img1.jpg");
+  background-size: cover;
+  z-index: 1;
+  top: -5%;
+  right: 55%;
+}
+
+#image-2-section-1{
+  background-image: url("../src/img/montSaintMichel-img2.jpg");
+  background-size: cover;
+  z-index: 2;
+  right: 0%;
+  top: 5%;
+}
+
+.h1{
+  padding: 10px;
+}
+
+
+/* SECTION 2 */
+
+#accueil-section-2{
+  background-image: url("../src/img/trip.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.h100{
+  height: 100%;
+}
+
+#card-image-section-2{
+  height: var(--height-elements-section-2);
+  position: relative;
+}
+
+#card-text-section-2{
+  background-color: rgba(84, 209, 188, 0.274);
+  height: 70%;
+  width: 100%;
+}
+
+#text-section-2{
+  font-size: 1.5em;
+  border-left: 3px solid black;
+  padding: 25px;
+}
+
+#button-modal{
+  height: 225px;
+  width: 300px;
+  background-image: url("../src/img/people-vue.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: calc(100% - 250px);
+  bottom: -5%;
+  z-index: 3;
+}
+
+#play-button{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid black;
+  background-color: rgba(228, 228, 228, 0.459);
+  position: relative;
+}
+
+#button-modal:focus, #button-modal:active{
+  outline: none;
+}
+
+#play{
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 20px solid black;
+  height: 0px;
+  width: 20px;
+  position: absolute;
+  top: calc(50% - 10px);
+  left: calc(50% - 10px);
+}
+
+.modal-content{
+  width: 900px;
+}
+
+/* SECTION 3 */
+
+.box-shadow{
+  box-shadow: 2px 2px 10px gray;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  SECTION 4 */
+
+.image-accueil{
+  background-size: cover;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0;
+}
+
+#image-1{
+  background-image: url("../src/img/image-hauteur-hotel-1.jpg");
+  height: 600px;
+}
+
+#image-2{
+  background-image: url("../src/img/image-horizontale-hotel-1.jpg");
+  background-position: 50% 100%;
+  height: 300px;
+}
+#image-3{
+  background-image: url("../src/img/image-horizontale-hotel-2.jpg");
+  background-position: 50% 100%;
+  height: 300px;
+}
+#image-4{
+  background-image: url("../src/img/image-hauteur-hotel-2.jpg");
+  background-position: 60% 50%;
+  height: 600px;
+}
+
+.image-prix{
+  height: 0%;
+  font-size: 2em;
+  font-weight: bold;
+  background-color: rgba(236, 228, 228, 0.658);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+
+.image-accueil:hover .image-prix{
+  animation: prixVisible forwards 0.5s;
+}
+
+@keyframes prixVisible {
+  from {
+    visibility: hidden;
+    color: transparent;
+    height: 0%;
+  }
+  to {
+    visibility: visible;
+    color: black;
+    height: 75px;
+  }
+}
+
+.image-accueil .image-prix{
+  animation: prixInvisible forwards 0.5s;
+}
+
+@keyframes prixInvisible {
+  from {
+    visibility: visible;
+    color: black;
+    height: 15%;
+  }
+  to {
+    visibility: hidden;
+    color: transparent;
+    height: 0%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CARTE FRANCE */
+/* Site pour récupérer des SVG "amcharts.com/svg-maps/" */
+
+#map{
+  background: url("../src/img/imageAccueil.jpg") 40% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  z-index: 5;
+  width: 100%;
+  margin: 0;
+}
+
+/* Les trois prochaines instructions sont pour gérer l'apparition de la carte france sur la page d'accueil avec l'action du fichier JS par un toggle */
+#map__image, #map__list {
+  visibility: hidden;
+}
+
+.visible-carte{
+  animation: visible-carte 0.7s forwards;
+}
+
+@keyframes visible-carte {
+  from {
+    opacity: 0;
+  }
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.map__image path{
+  stroke: white;
+  stroke-width: 1px;
+}
+
+.map__image path.present{
+  fill: #a4ced2;
+  transition: fill 0.3s;
+}
+
+.map__image path.absent{
+  fill: #9b9b9b;
+}
+
+.map__image .is-active path.present{
+  fill: var(--color-map-is-active);
+}
+
+.map__list{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.map__list a{
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.map__list a.is-active{
+  background-color: var(--color-map-is-active);
+  transition: 0.3s;
+}
+
+#agences{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-agence{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card-agence a, .card-agence div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-agence a{
+  height: 25%;
+  background-color:#a4ced2;
+}
+.card-agence div{
+  height: 75%;
+  background-color:#ffffffc9;
+  padding: 10px;
+}
+
+#agences li{
+  width: calc(50% - 20px);
+  min-height: 100px;
+  margin: 10px;
+  text-align: center;
+  border: 1px solid black;
+  display: inline-block;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px gray;
+}
+
+#button-to-carte{
+  position: absolute;
+  top: 90%;
+  left: calc(50% - 125px);
+  height: 50px;
+  width: 250px;
+  z-index: 999;
+  color: white;
+  text-decoration: none;
+  line-height: 40px;
+  font-size: 1.5em;
+  text-align: center;
+  border: 3px solid white;
+  border-radius: 15px;
+}
+
+.test3{
+  border: 3px solid rgb(0, 17, 94)!important;
+  color: rgb(0, 17, 94)!important;
+  background-color: white!important;
+  transition: 0.3s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #div-messagerie{
-  min-height: 400px;
-  max-height: 630px;
+  height: 75vh;
+  border-radius: 15px;
+}
+
+.background-opacity{
+  background-color: rgba(236, 228, 228, 0.274);
+}
+
+#users * {
+  padding: 0;
+  margin: 0;
+  border-top-left-radius: 15px;;
+}
+
+#background-messagerie-user{
+  background: url("../src/img/messagerie-user.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+}
+
+#background-messagerie-admin{
+  background: url("../src/img/library.jpg");
+  background-size: cover;
+  background-position: 100% 50%;
+  height: 100vh;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+}
+
+#users{
+  /* background: url("../src/img/fond-messagerie.jpg"); */
+  /* background-size: cover; */
+  font-size: 1.3em;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background-color: rgba(66, 36, 36, 0.274);
+}
+
+#users button {
+  width: 100%;
+  height: 75px;
+  border-radius: 0;
+  background-color: transparent;
+  color: white;
+}
+
+#users button:first-child{
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+#users button:active, #users button:focus{
+  outline:none;
 }
 
 #test{
-  min-height: 400px;
-  max-height: 630px;
+  height: 100%;
 }
-
-#messagerie-padding {
-  max-height: 430px;
-}
-
 
 #messagerie-padding{
   overflow-y: auto;
+  height: calc(75vh - 10em);
+  position: relative;
 }
 
 #messagerie-padding::-webkit-scrollbar {
   display: none;
+  }
+
+
+/* Ici je change la couleur des messages de la messagerie admin */
+.message {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  min-height: 40px;
+  padding: 10px 20px;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.message-noir{
+  background-color: rgba(66, 36, 36, 0.678);
+  color: white;
+}
+.message-blanc{
+  background-color:  #d8df74;
 }
 
-.liens-messagerie{
-  text-decoration: none;
-  color: black;
+.message-noir-user{
+  background-color: #386797;
+  color: white;
 }
+.message-blanc-user{
+  background-color: #d8df74;
+}
+
+
 
 #messagerie-padding > * {
   padding-right: 5px!important;
   padding-left: 5px!important;
-}
-
-#messagerie-padding .col-2, #messagerie-padding .col-10 {
-  padding-left: 0px;
-  padding-right: 0px;
 }
 
 .taille-date{
@@ -58,41 +572,38 @@ footer {
   margin-left: 5px!important;
 }
 
-#div-message{
-  max-height: 65px;
+.taille-date-user{
+  color: #000000;
+  font-size: 0.6rem;
+  margin-left: 5px!important;
 }
 
-#div-message-gros-plan{
-  background-color: #e0ebff;
-}
-
-.button-hidden{
-  border-radius: 10px;
-}
 
 .couleur{
-  box-shadow: 0px 0px 6px 2px rgb(216, 168, 11);
+  background-color: #596e81!important;
+  border-right: 8px solid rgb(216, 168, 11);
 }
 
-button.bg-success:focus {
-  outline: 0;
-  background-color: #28a745!important;
-}
-button.bg-primary:focus {
-  outline: 0;
-  background-color: #007bff!important;
+.couleur-admin{
+  background-color: rgba(66, 36, 36, 0.678)!important;
+  border-right: 8px solid rgb(216, 168, 11);
 }
 
 .cloche-messagerie{
-  color: rgb(185, 44, 44);
+  color: rgb(216, 168, 11);
 }
 
 #div-newMessage{
-  position: sticky;
+  position: absolute;
+  width: 100%;
   bottom: 0;
-
 }
-
+#div-newMessage textarea{
+  padding: 5px;
+  height: 10em;
+  margin: 0 5px 5px 5px;
+  width: calc(100% - 10px);
+}
 #div-textarea-button-messagerie{
   position: relative;
 }
@@ -108,26 +619,5 @@ button.bg-primary:focus {
 
 #newMessage::-webkit-scrollbar {
   display: none;
-}
+  }
 
-.test::after, .test:active, .test:focus{
-  outline:none;
-}
-
-.lien, .lien:hover {
-  text-decoration: none;
-  color: black;
-}
-
-.t {
-  border: 1px solid black;
-  background-color: white;
-  border-radius: 0%;
-}
-
-.t:hover, .t:focus {
-  background-color: rgb(181, 226, 213);
-  box-shadow: none;
-  border: none;
-  border-radius: 0%;
-}

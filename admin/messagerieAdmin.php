@@ -5,7 +5,7 @@ $requete = getBdd()->prepare("SELECT nom, prenom, expediteur, destinataire, mess
 $requete->execute([$_SESSION["role"]]);
 $messages = $requete->fetchALL(PDO::FETCH_ASSOC);
 
-$requete = getBdd()->prepare("SELECT DISTINCT idUtilisateur, nom, prenom FROM messages LEFT JOIN utilisateurs ON idUtilisateur = expediteur WHERE messages.idRole = 2 ORDER BY idMessage DESC");
+$requete = getBdd()->prepare("SELECT DISTINCT idUtilisateur, nom, prenom FROM messages LEFT JOIN utilisateurs ON idUtilisateur = expediteur WHERE messages.idRole = ? ORDER BY idMessage DESC");
 $requete->execute([$_SESSION["role"]]);
 $utilisateurs = $requete->fetchALL(PDO::FETCH_ASSOC);
 
@@ -18,7 +18,7 @@ if(!empty($_GET["utilisateur"])){
 
 if(!empty($_POST["newMessage"])){
 
-    sqlNewMessage($_POST["newMessage"], $_SESSION["idUtilisateur"], $_GET["utilisateur"]);
+    sqlNewMessageAdmin($_POST["newMessage"], $_SESSION["idUtilisateur"], $_GET["utilisateur"]);
 
     header("location:../admin/messagerieAdmin.php?utilisateur=" . $_GET["utilisateur"]);
 

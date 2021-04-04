@@ -2,11 +2,11 @@
 require_once "header.php";
 
 $messages = sqlMessagerie($_SESSION["idUtilisateur"]);
-sqlMessageUserLu("Lu", $_SESSION["idUtilisateur"]);
+sqlMessageUserLu($_SESSION["idUtilisateur"]);
 
 if(!empty($_POST["newMessage"])){
 
-    $newMessage = sqlNewMessage($_POST["newMessage"], $_SESSION["idUtilisateur"]);
+    $newMessage = sqlNewMessageUser($_POST["newMessage"], $_SESSION["idUtilisateur"]);
 
     header("location:messagerie.php?idmessage=" . $newMessage['idMessage'] . "#" . $newMessage['idMessage'] . '"');
 }
@@ -22,10 +22,10 @@ if(!empty($_POST["newMessage"])){
                 foreach($messages as $cle => $message){
                     ?>
                     <div class="col-12 d-flex align-items-center justify-content-center">
-                        <div class="col-10 my-2 <?=$_SESSION["idUtilisateur"] == $message["idUtilisateurDest"] ? '' : 'order-1';?>">
+                        <div class="col-10 my-2 <?=$_SESSION["idUtilisateur"] == $message["destinataire"] ? '' : 'order-1';?>">
                         <form method="POST" action="messagerie.php">
-                                <div id="<?=$message["idMessage"];?>" class="message <?=$_SESSION["idUtilisateur"] == $message["idUtilisateurDest"] ? 'message-noir-user' : 'message-blanc-user';?>" type="submit" name="refresh" value="<?=$message["idMessage"];?>">
-                                    <div class="card-text"><?=$message["contenu"];?> <?=($message["statut"] !== "Lu" && $_SESSION["idUtilisateur"] === $message["idUtilisateurDest"]) ? '<i class="cloche-messagerie far fa-bell ml-3"></i>' : '';?></div>
+                                <div id="<?=$message["idMessage"];?>" class="message <?=$_SESSION["idUtilisateur"] == $message["destinataire"] ? 'message-noir-user' : 'message-blanc-user';?>" type="submit" name="refresh" value="<?=$message["idMessage"];?>">
+                                    <div class="card-text"><?=$message["contenu"];?></div>
                                     
                                 </div>
                         </form>

@@ -1,7 +1,7 @@
 <?php
 require_once "traitement.php";
 
-    if(isset($_POST["submit"]) && !empty($_POST["submit"]) && $_POST["submit"] === "ON"){
+    if(!empty($_POST["submit"])){
         
         extract($_POST);
         $erreurs = [];
@@ -18,11 +18,6 @@ require_once "traitement.php";
         // Vérification de la validité de l'email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $erreurs[] = "L'adresse email saisie n'est pas valide";
-        }
-
-        // vérification de la longueur du mot de passe
-        if(strlen($mdp) < 8){
-            $erreurs[]= "Le mot de passe doit contenir au moins 8 caractères.";
         }
 
         // Si on a pas d'erreur à ce stade, on va faire les vérifications dans la BDD

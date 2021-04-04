@@ -1,38 +1,27 @@
 <?php
 require_once "header.php";
 
-$requete = getBdd()->prepare("SELECT nom, prenom, consulter_message.idUtilisateur, idUtilisateurDest, consulter_message.idRole, idMessage, date, contenu, statut  FROM utilisateurs INNER JOIN consulter_message USING(idUtilisateur) INNER JOIN messages USING(idMessage) ORDER BY date ASC");
+$requete = getBdd()->prepare("SELECT nom, prenom, expediteur, destinataire, messages.idRole, idMessage, date, contenu FROM messages LEFT JOIN consulter_messages USING(idMessage) LEFT JOIN utilisateurs USING(idUtilisateur) ORDER BY idMessage ASC");
 $requete->execute([$_SESSION["role"]]);
 $messages = $requete->fetchALL(PDO::FETCH_ASSOC);
 
-$requete = getBdd()->prepare("SELECT DISTINCT idUtilisateur, nom, prenom FROM utilisateurs INNER JOIN consulter_message USING(idUtilisateur) INNER JOIN messages USING(idMessage) WHERE consulter_message.idRole = ? ORDER BY date ASC");
+$requete = getBdd()->prepare("SELECT DISTINCT idUtilisateur, nom, prenom FROM messages LEFT JOIN utilisateurs ON idUtilisateur = expediteur WHERE messages.idRole = 2 ORDER BY idMessage DESC");
 $requete->execute([$_SESSION["role"]]);
 $utilisateurs = $requete->fetchALL(PDO::FETCH_ASSOC);
 
-
 if(!empty($_GET["utilisateur"])){
 
-    sqlMessageAdminLu("Lu", $_GET["utilisateur"]);
+    sqlMessageAdminLu($_GET["utilisateur"], $_SESSION["idUtilisateur"]);
 
 }
 
 
 if(!empty($_POST["newMessage"])){
 
-    $today = date("Y-m-d H:i:s");
+    sqlNewMessage($_POST["newMessage"], $_SESSION["idUtilisateur"], $_GET["utilisateur"]);
 
-    $requete = getBdd()->prepare("INSERT INTO messages(date, contenu) VALUES(?, ?)");
-    $requete->execute([$today, $_POST["newMessage"]]);
+    header("location:../admin/messagerieAdmin.php?utilisateur=" . $_GET["utilisateur"]);
 
-    $requete = getBdd()->prepare("SELECT idMessage FROM messages WHERE contenu = ? AND date = ?");
-    $requete->execute([$_POST["newMessage"], $today]);
-    $newMessage = $requete->fetch(PDO::FETCH_ASSOC);
-
-    $requete = getBdd()->prepare("INSERT INTO consulter_message(idMessage, idUtilisateur, idUtilisateurExpe, idUtilisateurDest, idRole) VALUES(?, ?, ?, ?, ?)");
-    $requete->execute([$newMessage["idMessage"], $_SESSION["idUtilisateur"], $_SESSION["idUtilisateur"], $_POST["idUtilisateur"], 1]);
-    // la problème quand il n'y a pas de message avant, écrire à l'admin provoque un problème, ce n'est pas encore ciblé, va falloir utiliser l'idrôle pour l'affichage de l'admin je pense et mieux géré la page de l'utilisateur, probablement le moment de séparer les messageries
-
-    header("location:messagerieAdmin.php?utilisateur=" . $_GET["utilisateur"] . "&idmessage=" . $newMessage['idMessage'] . "#" . $newMessage['idMessage'] . '"');
 }
 
 ?>
@@ -53,11 +42,11 @@ if(!empty($_POST["newMessage"])){
                                     <?=$utilisateur["nom"];?> <?=$utilisateur["prenom"];?>
                                     <?php
                                     $nbMessage = 0;
-                                    foreach($messages as $message){
-                                        if($message["statut"] !== "Lu" && $utilisateur["idUtilisateur"] == $message["idUtilisateur"]){
-                                            $nbMessage++;
-                                        }
-                                    }
+                                    // foreach($messages as $message){
+                                    //     if($message["statut"] !== "Lu" && $utilisateur["idUtilisateur"] == $message["idUtilisateur"]){
+                                    //         $nbMessage++;
+                                    //     }
+                                    // }
                                     if($nbMessage > 0){
                                         ?>
                                         <i class="cloche-messagerie far fa-bell ml-3"></i>
@@ -76,13 +65,13 @@ if(!empty($_POST["newMessage"])){
                 <?php
                 if(!empty($_GET["utilisateur"])){
                     foreach($messages as $cle => $message){
-                        if($_GET["utilisateur"] == $message["idUtilisateur"] || $_GET["utilisateur"] == $message["idUtilisateurDest"] ){ // GROS GROS PROBLEME D4AFFICHAGE
+                        if($_GET["utilisateur"] == $message["expediteur"] || $_GET["utilisateur"] == $message["destinataire"] ){ // GROS GROS PROBLEME D4AFFICHAGE
                             ?>
                             <div class="col-12 d-flex align-items-center justify-content-center">
-                                <div class="col-10 my-2 <?=$_GET["utilisateur"] !== $message["idUtilisateurDest"] ? '' : 'order-1';?>">
+                                <div class="col-10 my-2 <?=$_GET["utilisateur"] !== $message["destinataire"] ? '' : 'order-1';?>">
                                     <form method="GET" action="messagerieAdmin.php">
 
-                                            <div id="message<?=$message["idMessage"];?>" class="message <?=$_GET["utilisateur"] !== $message["idUtilisateurDest"] ? 'message-noir' : 'message-blanc';?>"><?=$message["contenu"];?></div>
+                                            <div id="message<?=$message["idMessage"];?>" class="message <?=$_GET["utilisateur"] !== $message["destinataire"] ? 'message-noir' : 'message-blanc';?>"><?=$message["contenu"];?></div>
                                         
                                     </form>
                                 </div>

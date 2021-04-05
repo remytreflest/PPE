@@ -15,6 +15,18 @@ if(!empty($_GET["utilisateur"])){
 
 }
 
+if(!empty($_GET["search"])){
+
+    $idRole = 2;
+
+    $requete = getBdd()->prepare("SELECT DISTINCT idUtilisateur, nom, prenom FROM messages LEFT JOIN utilisateurs ON idUtilisateur = expediteur WHERE messages.idRole = :idRole AND nom LIKE CONCAT('%', :like1, '%') OR prenom LIKE CONCAT('%', :like2, '%') ORDER BY idMessage DESC");
+    $requete->bindvalue(':idRole', $idRole, PDO::PARAM_INT);
+    $requete->bindvalue(':like1', $_GET["search"], PDO::PARAM_STR);
+    $requete->bindvalue(':like2', $_GET["search"], PDO::PARAM_STR);
+    $requete->execute();
+    $utilisateurs = $requete->fetchALL(PDO::FETCH_ASSOC);
+
+}
 
 if(!empty($_POST["newMessage"])){
 
@@ -29,10 +41,13 @@ if(!empty($_POST["newMessage"])){
 <div class="container">
     <div id="div-messagerie" class="row d-flex border background-opacity">
         <div id="users" class="col-4 d-flex-column p-0">
-            <!-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
+            <form method="get">
+                <div class="container-search-bar">
+                    <input type="search" name="search" placeholder="Search" aria-label="Search"
+                        aria-describedby="search-addon" />
+                    <button id="search-bar-msg" type="submit" class="btn btn-outline-dark"><i class="fas fa-search fa-2x"></i></button>
+                </div>
+            </form>
             <?php
                 foreach($utilisateurs as $cle => $utilisateur){
                     ?>

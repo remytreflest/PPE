@@ -28,7 +28,7 @@ if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
     <title>Voyage.com</title>
 </head>
 <body>
-    <nav id="nav-bar" class="navbar navbar-light navbar-expand-md">
+    <nav id="nav-bar" class="navbar navbar-light navbar-expand-md fond">
     <a class="navbar-brand" href="../index.php">
         <img src="../src/logos/logo-site.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Voyage
@@ -37,9 +37,6 @@ if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <div class="navbar-nav d-flex col-12 align-items-center">
-            <a class="nav-item nav-link" href="ajouterHotels.php">Ajouter Hotel</a>
-            <a class="nav-item nav-link" href="#">Liste des voyages</a>
             <span class="ml-auto mr-3"><?php
             if(!empty($_SESSION["idUtilisateur"])){
                 ?>

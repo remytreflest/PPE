@@ -26,10 +26,10 @@ if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
     <script src="https://kit.fontawesome.com/f3f16a7b72.js" crossorigin="anonymous"></script>
     <title>Voyage.com</title>
 </head>
-<body>
+<body style="overflow-y:auto">
     <nav id="nav-bar" class="navbar navbar-light navbar-expand-md fond">
     <a class="navbar-brand" href="index.php">
-        <img src="../src/logos/logo-site.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="../src/logos/logo-site.png" width="30" height="30" class="d-inline-block align-top">
         Voyage
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

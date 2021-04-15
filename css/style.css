@@ -581,7 +581,6 @@ section{
   display: none;
   }
 
-<<<<<<< HEAD
 .test::after, .test:active, .test:focus{
   outline:none;
 }
@@ -626,11 +625,10 @@ input:placeholder-shown {
 @keyframes clouds {
   0%  {background-position: 0 0;}
   100%  {background-position: -2122px 0;}
-=======
+}
 
 
-
-  /* PAGE PANIER */
+/* PAGE PANIER */
 #container-panier{
   background-color: #e6e6e6;
   margin: 50px auto;
@@ -671,5 +669,4 @@ input:placeholder-shown {
   color: white;
   background-color: rgb(36, 172, 36);
   font-weight: 650;
->>>>>>> 6d8016331588c7b8d7c9d68448b933d6de93c9d5
 }

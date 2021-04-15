@@ -6,7 +6,7 @@ $tours = toursPrecision();
 <?php
 foreach($tours as $tour){
     ?>
-    <h1 class="mb-5 mt-5" style="font-family: Oswald, Sans-serif"><b><?=$tour["nom"]?></b></h1>
+    <h1 class="mb-5 mt-5" style="font-family: Oswald, Sans-serif"><b><?=$tour["libelle"]?></b></h1>
     <img src="<?=$tour["photo"]?>" class="img-fluid mr-3" style="max-width: 400px; float:left;">
     <h4><?=$tour["nom"]?></h4>
     <p style="font-family: Oswald, Sans-serif">À seulement <?=$tour["prix"]?>€</p>

@@ -12,6 +12,15 @@
   text-align: justify;
 }
 
+.bold{
+  font-weight: bold;
+}
+
+.text-gris{
+  color: #828282;
+  font-weight: 650;
+}
+
 body {
   padding: 0;
   margin: 0;

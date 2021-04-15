@@ -1,7 +1,7 @@
 <?php
 
 function getBdd() {
-    return new PDO('mysql:host=localhost;dbname=voyage;charset=UTF8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    return new PDO('mysql:host=localhost;dbname=voyages;charset=UTF8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 
 require_once "../modeles/messages.php";

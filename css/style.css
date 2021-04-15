@@ -28,6 +28,15 @@ footer {
   text-align: justify;
 }
 
+.bold{
+  font-weight: bold;
+}
+
+.text-gris{
+  color: #828282;
+  font-weight: 650;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -444,6 +453,22 @@ section{
   color: white;
 }
 
+.container-search-bar{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  margin-bottom: 20px!important;
+}
+
+.container-search-bar input {
+  width: calc(100% - 50px);
+}
+
+#users #search-bar-msg{
+  width: 50px;
+  height: 50px;
+}
+
 #users button:first-child{
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -556,6 +581,7 @@ section{
   display: none;
   }
 
+<<<<<<< HEAD
 .test::after, .test:active, .test:focus{
   outline:none;
 }
@@ -600,4 +626,50 @@ input:placeholder-shown {
 @keyframes clouds {
   0%  {background-position: 0 0;}
   100%  {background-position: -2122px 0;}
+=======
+
+
+
+  /* PAGE PANIER */
+#container-panier{
+  background-color: #e6e6e6;
+  margin: 50px auto;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+#image-produit-panier{
+  min-height: 150px;
+  height: 100%;
+  width: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background: url("../src/img/image-horizontale-hotel-1.jpg");
+}
+
+.panier-quantite{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 50%;
+  height: 18px;
+  width: 18px;
+  background-color: #e6e6e6;
+  border: 0.5px solid rgb(155, 155, 155);
+  font-size: 1.2em;
+  padding-bottom: 5px;
+}
+
+.panier-quantite:focus, .panier-quantite:active{
+  outline: none;
+}
+
+#btn-valider-panier {
+  width: 100%;
+  height: 35px;
+  color: white;
+  background-color: rgb(36, 172, 36);
+  font-weight: 650;
+>>>>>>> 6d8016331588c7b8d7c9d68448b933d6de93c9d5
 }

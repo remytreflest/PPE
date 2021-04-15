@@ -1,60 +1,88 @@
 <?php
 
-// récupération du nombre de messages concernant l'utilisateur
-function sqlMessagesUtilisateur($param){
+// récupération du nombre de messages non lu concernant l'utilisateur 
+function sqlMessagesUtilisateur($SESSION_idUtilisateur){
 
-    $requete = getBdd()->prepare("SELECT COUNT(idMessage) FROM consulter_message INNER JOIN messages USING(idMessage) WHERE statut IS NULL AND idUtilisateurDest = ?");
-    $requete->execute([$param]);
+    $requete = getBdd()->prepare("SELECT (COUNT(m.idMessage) - COUNT(c.idMessage)) AS nbMsg FROM messages m LEFT JOIN consulter_messages c USING(idMessage) WHERE idMessage IN (SELECT idMessage FROM messages WHERE destinataire = ?)");
+    $requete->execute([$SESSION_idUtilisateur]);
     return $requete->fetch(PDO::FETCH_ASSOC);
 
 }
 
-// récupération du nombre de messages concernant l'admin
-function sqlMessagesAdmin($param){
+// récupération du nombre de messages non lu concernant l'admin (grace à l'idUtilisateur de la table consulter message qui sera null si non présent dans la table et donc non lu)
+function sqlMessagesAdmin($session_role){
 
-    $requete = getBdd()->prepare("SELECT COUNT(idMessage) FROM consulter_message INNER JOIN messages USING(idMessage) WHERE statut IS NULL AND idRole = ?");
-    $requete->execute([$param]);
+    $requete = getBdd()->prepare("SELECT (COUNT(m.idMessage) - COUNT(c.idMessage)) AS nbMsg FROM messages m LEFT JOIN consulter_messages c USING(idMessage) WHERE idMessage IN (SELECT idMessage FROM messages WHERE idRole = ?)");
+    $requete->execute([$session_role]);
     return $requete->fetch(PDO::FETCH_ASSOC);
 
 }
 
 // récupération des messages concernant l'utilisateur, aussi bien expéditeur que destinataire
-function sqlMessagerie($param){
+function sqlMessagerie($SESSION_idUtilisateur){
 
-    $requete = getBdd()->prepare("SELECT consulter_message.idUtilisateur, idUtilisateurExpe, idUtilisateurDest, idMessage, date, contenu, statut  FROM utilisateurs INNER JOIN consulter_message USING(idUtilisateur) INNER JOIN messages USING(idMessage) WHERE idUtilisateur = ? OR idUtilisateurDest = ? ORDER BY date ASC");
-    $requete->execute([$param, $param]);
+    $requete = getBdd()->prepare("SELECT idMessage, date, contenu, expediteur, destinataire FROM messages WHERE expediteur = ? OR destinataire = ?");
+    $requete->execute([$SESSION_idUtilisateur, $SESSION_idUtilisateur]);
     $messages = $requete->fetchALL(PDO::FETCH_ASSOC);
     return $messages;
 }
 
 // actualisation d'un message non lu vers un message lu
-function sqlMessageUserLu($param1, $param2){
+function sqlMessageUserLu($SESSION_idUtilisateur){
 
-    $requete = getBdd()->prepare("UPDATE messages SET statut = ? WHERE idMessage IN (SELECT idMessage FROM consulter_message WHERE idUtilisateurDest = ?) ");
-    $requete->execute([$param1, $param2]);
+    $requete = getBdd()->prepare("SELECT idMessage FROM messages LEFT JOIN consulter_messages USING(idMessage) WHERE destinataire = ? and idUtilisateur IS NULL");
+    $requete->execute([$SESSION_idUtilisateur]);
+    $idMessages = $requete->fetchALL(PDO::FETCH_ASSOC);
+
+    $valeurs = [];
+    foreach($idMessages as $idMessage){
+        $valeurs[] = $SESSION_idUtilisateur;
+        $valeurs[] = $idMessage["idMessage"];
+    }
+
+    try{
+    $sql = "INSERT INTO consulter_messages(idUtilisateur, idMessage) VALUES " . substr(str_repeat("(?,?),", (count($valeurs) / 2)), 0, -1);
+    $requete = getBdd()->prepare($sql);
+    $requete->execute($valeurs);
+    } catch(Exception $e){
+
+    }
 
 }
 
-function sqlMessageAdminLu($param1, $param2){
+function sqlMessageAdminLu($GET_utilisateur, $SESSION_idUtilisateur){
 
-    $requete = getBdd()->prepare("UPDATE messages SET statut = ? WHERE idMessage IN (SELECT idMessage FROM consulter_message WHERE idUtilisateurExpe = ?) ");
-    $requete->execute([$param1, $param2]);
+    $requete = getBdd()->prepare("SELECT idMessage FROM messages LEFT JOIN consulter_messages USING(idMessage) WHERE expediteur = ? and idUtilisateur IS NULL");
+    $requete->execute([$GET_utilisateur]);
+    $idMessages = $requete->fetchALL(PDO::FETCH_ASSOC);
+
+    $valeurs = [];
+    foreach($idMessages as $idMessage){
+        $valeurs[] = $SESSION_idUtilisateur;
+        $valeurs[] = $idMessage["idMessage"];
+    }
+
+    try{
+    $sql = "INSERT INTO consulter_messages(idUtilisateur, idMessage) VALUES " . substr(str_repeat("(?,?),", (count($valeurs) / 2)), 0, -1);
+    $requete = getBdd()->prepare($sql);
+    $requete->execute($valeurs);
+    } catch(Exception $e){
+
+    }
 
 }
 
 // introduit le nouveau message dans la base de donnée
-function sqlNewMessage($param1, $param2){
+function sqlNewMessageAdmin($POST_newMessage, $SESSION_idUtilisateur, $GET_utilisateur){
 
-    $today = date("Y-m-d H:i:s");
+    $requete = getBdd()->prepare("INSERT INTO messages(date, contenu, expediteur, destinataire, idRole) VALUES(NOW(), ?, ?, ?, (SELECT idRole FROM utilisateurs WHERE idUtilisateur = ?))");
+    $requete->execute([$POST_newMessage, $SESSION_idUtilisateur, $GET_utilisateur, $GET_utilisateur]);
 
-    $requete = getBdd()->prepare("INSERT INTO messages(date, contenu) VALUES(?, ?)");
-    $requete->execute([$today, $param1]);
+}
 
-    $requete = getBdd()->prepare("SELECT idMessage FROM messages WHERE contenu = ? AND date = ?");
-    $requete->execute([$param1, $today]);
-    $newMessage = $requete->fetch(PDO::FETCH_ASSOC);
+function sqlNewMessageUser($POST_newMessage, $SESSION_idUtilisateur){
 
-    $requete = getBdd()->prepare("INSERT INTO consulter_message(idMessage, idUtilisateur, idUtilisateurExpe, idRole) VALUES(?, ?, ?, ?)");
-    $requete->execute([$newMessage["idMessage"], $param2, $param2, 2]);
+    $requete = getBdd()->prepare("INSERT INTO messages(date, contenu, expediteur, idRole) VALUES(NOW(), ?, ?, ?)");
+    $requete->execute([$POST_newMessage, $SESSION_idUtilisateur, 2]);
 
 }

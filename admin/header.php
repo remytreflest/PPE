@@ -48,7 +48,7 @@ if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
                         <ul class="dropdown-menu" id="dropdown-nav">
                             <li class="dropdown-item"><a href="#">Profil</a></li>
                             <li class="dropdown-item"><a href="#">Favoris</a></li>
-                            <li class="dropdown-item"><a href="<?=$_SESSION["role"] == 1 ? 'messagerie.php' : '../admin/messagerieAdmin.php';?>">Messagerie</a><span class="badge <?=(!empty($nombre_message_non_lu["COUNT(idMessage)"]) && $nombre_message_non_lu["COUNT(idMessage)"] > 0) ? 'badge-danger' : 'badge-success';?> align-self-start ml-2"><?=$nombre_message_non_lu["COUNT(idMessage)"];?></span></li>
+                            <li class="dropdown-item"><a href="<?=$_SESSION["role"] == 1 ? 'messagerie.php' : '../admin/messagerieAdmin.php';?>">Messagerie</a><span class="badge <?=(!empty($nombre_message_non_lu["nbMsg"]) && $nombre_message_non_lu["nbMsg"] > 0) ? 'badge-danger' : 'badge-success';?> align-self-start ml-2"><?=$nombre_message_non_lu["nbMsg"];?></span></li>
                         </ul>
                     </li>
                 </ul>

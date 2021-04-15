@@ -1,13 +1,14 @@
 <?php
 
-function getBdd() {
-    return new PDO('mysql:host=localhost;dbname=voyages;charset=UTF8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+class Modele {
+
+
+    protected function getBdd()
+    {
+        $dsn = "mysql:host=localhost;dbname=voyages;charset=UTF8";
+        $username = "root";
+        $password = "";
+        return new PDO($dsn, $username, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    }
+
 }
-
-require_once "../modeles/messages.php";
-require_once "../modeles/hotels.php";
-require_once "../modeles/utilisateurs.php";
-require_once "../modeles/listeTours.php";
-require_once "../modeles/tours.php";
-
-?>

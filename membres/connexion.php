@@ -1,5 +1,6 @@
 <?php
 require_once "header.php";
+require_once "container.php";
 
 ?>
     <h1>Formulaire de connexion</h1>

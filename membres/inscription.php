@@ -1,6 +1,6 @@
 <?php
 require_once "header.php";
-
+require_once "container.php";
 
 // Comme la gestion des erreurs se fait dans traitements/inscription.php, je transferts les erreurs via get et je les ai répertoriées dans un tableau ou je me sert d'une boucle for pour afficher les bonnes erreurs correspondante
 $messagesErreurs = ["L'adresse email saisie n'est pas valide", "L'adresse email saisie existe déjà", "Le mot de passe doit faire au moins 8 caractères", "Les deux mots de passe ne sont pas identiques", "L'âge doit être compris entre 0 et 120 ans", "Au moins un champ n'a pas été saisi", "Une erreur s'est produite, l'inscription n'a pas pu être validée"];

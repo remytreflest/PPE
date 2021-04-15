@@ -1,8 +1,9 @@
 <?php
 require_once "header.php";
-
+require_once "container.php";
 $tours = toursPrecision();
-
+?>
+<?php
 foreach($tours as $tour){
     ?>
     <h1 class="mb-5 mt-5" style="font-family: Oswald, Sans-serif"><b><?=$tour["nom"]?></b></h1>
@@ -42,3 +43,6 @@ foreach($tours as $tour){
         </div>
     </div>
 </div>
+
+<?php
+require_once "footer.php";

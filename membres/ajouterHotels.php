@@ -3,7 +3,7 @@ require_once "header.php";
 require_once "container.php";
 ?>
 
-<h1>Ajouter un hôtel :</h1>
+<h1 class="mt-3">Ajouter un hôtel :</h1>
 
 <form action="traitements/ajoutHotel.php" method="post">
     <div class="form-group">

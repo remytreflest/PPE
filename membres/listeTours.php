@@ -9,7 +9,7 @@ $tours = tours();
   <?php
   foreach($tours as $tour){
     ?>
-      <div class ="col-6">
+      <div class ="col-6 mt-3">
         <div class="card text-center" style="width: 30rem;">
           <a href="tours.php?idTour=<?=$tour["idTour"]?>" class="mb-3 lien">
           <img src="<?=$tour["photo"]?>" class="card-img-top">

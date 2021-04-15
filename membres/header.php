@@ -27,7 +27,7 @@ if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
     <title>Voyage.com</title>
 </head>
 <body>
-    <nav id="nav-bar" class="navbar navbar-light navbar-expand-md">
+    <nav id="nav-bar" class="navbar navbar-light navbar-expand-md fond">
     <a class="navbar-brand" href="index.php">
         <img src="../src/logos/logo-site.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Voyage
@@ -39,6 +39,21 @@ if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
         <div class="navbar-nav d-flex col-12 align-items-center">
             <a class="nav-item nav-link" href="ajouterHotels.php">Ajouter tour</a>
             <a class="nav-item nav-link" href="listeTours.php">Liste des tours</a>
+            <div class="input-group col-4 ml-auto">
+                <button type="button" class="btn button-destination dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Les</a></li>
+                    <li><a class="dropdown-item" href="#">tours</a></li>
+                    <li><a class="dropdown-item" href="#">les</a></li>
+                    <li><a class="dropdown-item" href="#">plus</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">recherchés</a></li>
+                </ul>
+                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Exemple : Paris, Lyon,...">
+                <button type="submit" class="btn button-destination-validation"><i class="fas fa-check"></i></button>
+            </div>
             <span class="ml-auto mr-3"><?php
             if(!empty($_SESSION["idUtilisateur"])){
                 ?>

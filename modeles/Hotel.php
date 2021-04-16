@@ -1,11 +1,11 @@
 <?php
 
-class Hotels extends Modele {
+class Hotel extends Modele {
 
     private $idHotel;
     private $libelle;
     private $description;
-    private $idAgence;
+    private $idVille;
 
     public function __construct($idHotel = null){
 
@@ -18,9 +18,18 @@ class Hotels extends Modele {
             $this->idHotel = $infoHotel["idHotel"];
             $this->libelle = $infoHotel["libelle"];
             $this->description = $infoHotel["description"];
-            $this->idAgence = $infoHotel["idAgence"];
+            $this->idVille = $infoHotel["idVille"];
 
         }
+
+    }
+
+    public function initialiserHotel($idHotel, $libelle, $description, $idVille){
+
+        $this->idHotel = $idHotel;
+        $this->libelle = $libelle;
+        $this->description = $description;
+        $this->idVille = $idVille;
 
     }
 
@@ -37,7 +46,7 @@ class Hotels extends Modele {
     }
 
     public function getIdAgence(){
-        return $this->idAgence;
+        return $this->idVille;
     }
 
 }

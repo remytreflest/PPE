@@ -1,6 +1,6 @@
 <?php
 
-class Utilisateurs extends Modele {
+class Utilisateur extends Modele {
 
     private $idUtilisateur;
     private $email;
@@ -8,7 +8,8 @@ class Utilisateurs extends Modele {
     private $nom;
     private $prenom;
     private $age;
-    private $idRole;
+    protected $idRole;
+    private $messages = [];
 
     public function __construct($idUtilisateur = null){
 
@@ -25,6 +26,16 @@ class Utilisateurs extends Modele {
             $this->prenom = $infoUser["prenom"];
             $this->age = $infoUser["age"];
             $this->idRole = $infoUser["idRole"];
+            
+            $requete = $this->getBdd()->prepare("SELECT * FROM messages WHERE expediteur = ? OR destinataire = ? ORDER BY date");
+            $requete->execute([$idUtilisateur, $idUtilisateur]);
+            $infosMessages = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ( $infosMessages as $infoMessage ){
+                $objetMessage = new Message();
+                $objetMessage->initialiserMessages($infoMessage["idMessage"], $infoMessage["date"], $infoMessage["contenu"], $infoMessage["expediteur"], $infoMessage["destinataire"], $infoMessage["idRole"]);
+                $this->messages[] = $objetMessage;
+            }
 
         }
         
@@ -47,6 +58,8 @@ class Utilisateurs extends Modele {
         return $emailExist > 0 ? true : false;
 
     }
+
+
 
     public function getIdUtilisateur(){
         return $this->idUtilisateur;
@@ -74,6 +87,10 @@ class Utilisateurs extends Modele {
 
     public function getIdRole(){
         return $this->idRole;
+    }
+
+    public function getMessages(){
+        return $this->messages;
     }
 
 }

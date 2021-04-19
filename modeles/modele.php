@@ -9,5 +9,6 @@ require_once "../modeles/hotels.php";
 require_once "../modeles/utilisateurs.php";
 require_once "../modeles/listeTours.php";
 require_once "../modeles/tours.php";
+require_once "../modeles/header.php";
 
 ?>

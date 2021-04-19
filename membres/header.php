@@ -1,6 +1,6 @@
 <?php
 require_once "../traitements/traitement.php";
-
+$famous = famous();
 
 if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
 
@@ -44,12 +44,15 @@ if(!empty($_SESSION["idUtilisateur"]) && $_SESSION["role"] == 1){
                     <span class="visually-hidden"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Les</a></li>
-                    <li><a class="dropdown-item" href="#">tours</a></li>
-                    <li><a class="dropdown-item" href="#">les</a></li>
-                    <li><a class="dropdown-item" href="#">plus</a></li>
+                    <li class="dropdown-item disabled">Les plus populaires :</li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">recherchés</a></li>
+                    <?php
+                        foreach($famous as $fam){
+                            ?>
+                            <li><a class="dropdown-item mr-5" href="tours.php?idTour=<?=$fam["idVoyage"]?>"><?=$fam["libelle"]?><span class="badge bg-transparent" style="position: absolute; right:0%"><?=round($fam["note"], 1)?><i class="fas fa-star"></i></span></a></li>
+                            <?php
+                        }
+                    ?>
                 </ul>
                 <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Exemple : Paris, Lyon,...">
                 <button type="submit" class="btn button-destination-validation"><i class="fas fa-check"></i></button>

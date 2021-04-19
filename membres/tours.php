@@ -1,18 +1,20 @@
 <?php
 require_once "header.php";
 require_once "container.php";
-$tours = toursPrecision();
+$tours = toursPrecision($_GET["idTour"]);
 ?>
 <?php
 foreach($tours as $tour){
     ?>
     <h1 class="mb-5 mt-5" style="font-family: Oswald, Sans-serif"><b><?=$tour["libelle"]?></b></h1>
-    <img src="<?=$tour["photo"]?>" class="img-fluid mr-3" style="max-width: 400px; float:left;">
-    <h4><?=$tour["nom"]?></h4>
+    <img src="<?=$tour["photo"]?>" class="img-fluid mr-3" style="max-width: 400px; min-height:250px; float:left;">
+    <h4><?=$tour["libelle"]?></h4>
     <p style="font-family: Oswald, Sans-serif">À seulement <?=$tour["prix"]?>€</p>
-    <p style="font-family: Oswald, Sans-serif; color: grey"><?=$tour["precision"]?></p>
-    <p>En <i class="fas fa-<?=$tour["transport"]?>"></i></p>
-    <p>Pour <?=$tour["durée"]?> jours</p>
+    <p style="font-family: Oswald, Sans-serif; color: grey"><?=$tour["description"]?></p>
+    <div class="text-right">
+        <p>En <i class="fas fa-<?=$tour["transport"]?>"></i></p>
+        <p>Pour <?=$tour["durée"]?> jours</p>
+    </div>
 
     <?php
 }

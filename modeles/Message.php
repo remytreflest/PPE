@@ -2,12 +2,12 @@
 
 class Message extends Modele {
 
-    private $idMessage;
-    private $date;
-    private $contenu;
-    private $expediteur;
-    private $destinataire;
-    private $idRole;
+    protected $idMessage;
+    protected $date;
+    protected $contenu;
+    protected $expediteur;
+    protected $destinataire;
+    protected $role; // objet à construire
 
     public function __construct($idMessage = null){
 
@@ -22,7 +22,7 @@ class Message extends Modele {
             $this->contenu = $infoMessage["contenu"];
             $this->expediteur = $infoMessage["expediteur"];
             $this->destinataire = $infoMessage["destinataire"];
-            $this->idRole = $infoMessage["idRole"];
+            $this->role = $infoMessage["idRole"]; // objet à instancier
 
         }
 
@@ -35,7 +35,7 @@ class Message extends Modele {
         $this->contenu = $contenu;
         $this->expediteur = $expediteur;
         $this->destinataire = $destinataire;
-        $this->idRole = $idRole;
+        $this->role = $idRole;
 
     }
 

@@ -7,6 +7,8 @@ class Administrateur extends Utilisateur {
 
     public function __construct($idUtilisateur = null){
 
+        parent::__construct($idUtilisateur);
+
         if ( $idUtilisateur != null ){
 
             $requete = $this->getBdd()->prepare("SELECT idMessage FROM messages WHERE idRole = ? ORDER BY date");

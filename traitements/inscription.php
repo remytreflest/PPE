@@ -16,6 +16,7 @@ if (
         isset($_POST["age"]) && !empty($_POST["age"])
     ){
 
+        $Inscription = new Inscription();
         // tous les champs sont là
 
         // Vérification de la validité de l'email
@@ -24,9 +25,9 @@ if (
         }
 
         // Vérification que l'email est unique
-        $requete = sqlEmailExiste($_POST["email"]);
+        $requete = $Inscription->emailExiste($_POST["email"]);
 
-        if(!empty($requete)){
+        if($requete){
             $erreurs[] = "err1=exist";
         }
 
@@ -61,7 +62,7 @@ if (
             // On hash le mot de passe
             $mdp = password_hash($mdp, PASSWORD_BCRYPT);
 
-            sqlCreerUtilisateur($email, $mdp, $nom, $prenom, $age);
+            $Inscription->inscription($email, $mdp, $nom, $prenom, $age, 1);
 
             $href = "../membres/inscription.php?success=yes";
 

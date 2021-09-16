@@ -1,5 +1,70 @@
 <?php
 
+class Message extends Modele {
+
+    protected $idMessage;
+    protected $date;
+    protected $contenu;
+    protected $expediteur;
+    protected $destinataire;
+    protected $role; // objet à construire
+
+    public function __construct($idMessage = null){
+
+        if ( $idMessage != null ){
+
+            $requete = $this->getBdd()->prepare("SELECT * FROM messages WHERE idMessage = ?");
+            $requete->execute([$idMessage]);
+            $infoMessage = $requete->fetch(PDO::FETCH_ASSOC);
+
+            $this->idMessage = $infoMessage["idMessage"];
+            $this->date = $infoMessage["date"];
+            $this->contenu = $infoMessage["contenu"];
+            $this->expediteur = $infoMessage["expediteur"];
+            $this->destinataire = $infoMessage["destinataire"];
+            $this->role = $infoMessage["idRole"]; // objet à instancier
+
+        }
+
+    }
+
+    public function initialiserMessages($idMessage, $date, $contenu, $expediteur, $destinataire, $idRole){
+
+        $this->idMessage = $idMessage;
+        $this->date = $date;
+        $this->contenu = $contenu;
+        $this->expediteur = $expediteur;
+        $this->destinataire = $destinataire;
+        $this->role = $idRole;
+
+    }
+
+    public function getIdMessage(){
+        return $this->idMessage;
+    }
+
+    public function getDate(){
+        return $this->date;
+    }
+
+    public function getContenu(){
+        return $this->contenu;
+    }
+
+    public function getExpediteur(){
+        return $this->expediteur;
+    }
+
+    public function getDestinataire(){
+        return $this->destinataire;
+    }
+
+    public function getIdRole(){
+        return $this->idRole;
+    }
+
+}
+
 // récupération du nombre de messages non lu concernant l'utilisateur 
 function sqlMessagesUtilisateur($SESSION_idUtilisateur){
 
